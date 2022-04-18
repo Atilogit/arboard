@@ -12,6 +12,7 @@ and conditions of the chosen license apply to this file.
 #![crate_type = "lib"]
 
 mod common;
+mod dummy_clipboard;
 pub use common::Error;
 #[cfg(feature = "image-data")]
 pub use common::ImageData;
@@ -41,6 +42,8 @@ type PlatformClipboard = common_linux::LinuxClipboard;
 type PlatformClipboard = windows_clipboard::WindowsClipboardContext;
 #[cfg(target_os = "macos")]
 type PlatformClipboard = osx_clipboard::OSXClipboardContext;
+#[cfg(target_os = "android")]
+type PlatformClipboard = dummy_clipboard::DummyClipboardContext;
 
 #[cfg(all(
 	unix,
